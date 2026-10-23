@@ -76,6 +76,10 @@ Expected checkpoints, in order:
 
 Also test the read-only UI previews:
 
+The highlighted HINT strip sits directly below the input field. It shows a
+default class-preview example, updates the syntax while you type, and reminds
+you to press Enter to execute. Invalid preview indices appear there as warnings.
+
 1. With all students displayed, type `listbyclass 2` without pressing Enter.
    The right panel previews Cara with
    her command index **3**, and its header says **1 shown**.

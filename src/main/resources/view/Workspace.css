@@ -53,14 +53,6 @@
     -fx-padding: 2 6;
     -fx-font-size: 10px;
 }
-.workspace-bottom .draft-guidance {
-    -fx-background-color: #304457;
-    -fx-background-radius: 5;
-    -fx-text-fill: #e0eaf5;
-    -fx-font-size: 11px;
-    -fx-padding: 8 10;
-    -fx-max-width: Infinity;
-}
 .workspace-bottom .attendance-strip {
     -fx-padding: 2 0 2 12;
     -fx-border-color: #7e9bb6;
@@ -116,6 +108,19 @@
     -fx-highlight-text-fill: #ffffff;
 }
 .app-shell #commandTextField:focused { -fx-border-color: #91b4d3; }
+.app-shell .command-hint-surface {
+    -fx-background-color: #304457;
+    -fx-background-radius: 5;
+    -fx-padding: 8 10;
+}
+.app-shell .command-hint-caption {
+    -fx-text-fill: #a9cae7;
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-padding: 2 0 0 0;
+}
+.app-shell .command-hint-text { -fx-text-fill: #e0eaf5; -fx-font-size: 12px; }
+.app-shell .command-hint-text.preview-warning { -fx-text-fill: #f0c699; }
 .app-shell .error { -fx-text-fill: #efb0a2 !important; }
 .app-shell #resultDisplay {
     -fx-background-color: #252f3b;

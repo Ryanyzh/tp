@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.beans.property.ReadOnlyStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -21,9 +22,13 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
     private final CommandHistory commandHistory = new CommandHistory();
+    private String previewWarning = "";
 
     @FXML
     private TextField commandTextField;
+
+    @FXML
+    private Label commandHint;
 
     /**
      * Creates a {@code CommandBox} with the given {@code CommandExecutor}.
@@ -32,12 +37,35 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.textProperty().addListener((observable, previous, current) -> {
+            setStyleToDefault();
+            updateHint();
+        });
         commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleHistoryNavigation);
+        updateHint();
     }
 
     public ReadOnlyStringProperty textProperty() {
         return commandTextField.textProperty();
+    }
+
+    /** Shows any read-only preview warning beside the command's syntax guidance. */
+    public void setPreviewWarning(String warning) {
+        previewWarning = warning;
+        updateHint();
+    }
+
+    private void updateHint() {
+        commandHint.getStyleClass().remove("preview-warning");
+        if (commandTextField.getText().isBlank()) {
+            commandHint.setText("Type listbyclass 1 to preview a class. Press Enter to run a command.");
+        } else if (!previewWarning.isEmpty()) {
+            commandHint.setText(previewWarning + " Press Enter to run; typing only previews.");
+            commandHint.getStyleClass().add("preview-warning");
+        } else {
+            commandHint.setText(new CommandPreview(commandTextField.getText()).getSyntax()
+                    + "  ·  Press Enter to run");
+        }
     }
 
     /**

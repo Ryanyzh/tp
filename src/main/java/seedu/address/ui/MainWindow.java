@@ -142,7 +142,10 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
-        commandBox.textProperty().addListener((observable, previous, draft) -> contextPanel.updateDraft(draft));
+        commandBox.textProperty().addListener((observable, previous, draft) -> {
+            contextPanel.updateDraft(draft);
+            commandBox.setPreviewWarning(contextPanel.getPreviewWarning());
+        });
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 

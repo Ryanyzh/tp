@@ -82,10 +82,16 @@ public class WorkspaceTest {
                 capture(stage, "workspace");
 
                 TextField input = (TextField) stage.getScene().lookup("#commandTextField");
+                Label hint = (Label) stage.getScene().lookup("#commandHint");
                 TextArea output = (TextArea) stage.getScene().lookup("#resultDisplay");
                 Node bottom = stage.getScene().lookup(".workspace-bottom");
                 assertTrue(input.localToScene(input.getBoundsInLocal()).getMinY()
                         < output.localToScene(output.getBoundsInLocal()).getMinY());
+                assertTrue(input.localToScene(input.getBoundsInLocal()).getMaxY()
+                        <= hint.localToScene(hint.getBoundsInLocal()).getMinY());
+                assertTrue(hint.localToScene(hint.getBoundsInLocal()).getMaxY()
+                        < output.localToScene(output.getBoundsInLocal()).getMinY());
+                assertTrue(hint.getText().contains("Press Enter"));
                 assertTrue(output.localToScene(output.getBoundsInLocal()).getMaxY()
                         <= bottom.localToScene(bottom.getBoundsInLocal()).getMinY());
                 ListView<?> students = (ListView<?>) window.getPersonListPanel().getRoot().lookup("#personListView");
@@ -96,6 +102,7 @@ public class WorkspaceTest {
                 int recordsBefore = logic.getAttendanceList().stream().mapToInt(record -> record.getAttendanceCount())
                         .sum();
                 input.setText("addattendance 2 1 d/2024-02-06");
+                assertTrue(hint.getText().contains("STUDENT_INDEX CLASS_INDEX"));
                 assertContains(stage.getScene().getRoot(), "CS2103 · F10");
                 assertEquals(recordsBefore, logic.getAttendanceList().stream()
                         .mapToInt(record -> record.getAttendanceCount()).sum());
@@ -124,11 +131,14 @@ public class WorkspaceTest {
                 assertContains(stage.getScene().getRoot(), "CS2103 · F10");
                 capture(stage, "class-attendance");
                 input.setText("addattendance 9999 9999 d/");
+                assertTrue(hint.getStyleClass().contains("preview-warning"));
                 assertContains(stage.getScene().getRoot(), "outside the displayed student list");
                 assertContains(stage.getScene().getRoot(), "outside the displayed class list");
                 assertEquals(0, students.getItems().size());
                 assertEquals("0 shown", ((Label) stage.getScene().lookup("#shownStudentCount")).getText());
                 input.setText("");
+                assertTrue(hint.getText().contains("listbyclass 1"));
+                assertTrue(!hint.getStyleClass().contains("preview-warning"));
                 stage.setWidth(740);
                 stage.setHeight(600);
                 capture(stage, "compact-workspace");

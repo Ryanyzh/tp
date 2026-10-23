@@ -28,12 +28,12 @@ public class DynamicContentPanel extends VBox {
     private final Logic logic;
     private final Label title = new Label("Students");
     private final Label studentCount = new Label();
-    private final Label guidance = new Label();
     private final FilteredList<Person> previewStudents;
     private final PersonListPanel personListPanel;
     private AcademicClass commandClass;
     private AcademicClass attendanceClass;
     private String draft = "";
+    private String previewWarning = "";
 
     /** Creates a dynamic view that preserves command indices when showing a subset of students. */
     public DynamicContentPanel(Logic logic) {
@@ -48,8 +48,6 @@ public class DynamicContentPanel extends VBox {
         studentCount.getStyleClass().add("count-badge");
         studentCount.setMinWidth(USE_PREF_SIZE);
         studentCount.setTooltip(new Tooltip("Students currently shown, including any search or class preview."));
-        guidance.getStyleClass().add("draft-guidance");
-        guidance.setWrapText(true);
         previewStudents = new FilteredList<>(logic.getFilteredPersonList());
         studentCount.textProperty().bind(Bindings.size(previewStudents).asString("%d shown"));
         personListPanel = new PersonListPanel(previewStudents, () -> Optional.ofNullable(attendanceClass),
@@ -59,12 +57,16 @@ public class DynamicContentPanel extends VBox {
         HBox.setHgrow(spacer, Priority.ALWAYS);
         HBox header = new HBox(8, title, spacer, studentCount);
         header.setAlignment(Pos.CENTER_LEFT);
-        getChildren().addAll(header, guidance, personListPanel.getRoot());
+        getChildren().addAll(header, personListPanel.getRoot());
         refresh();
     }
 
     public PersonListPanel getPersonListPanel() {
         return personListPanel;
+    }
+
+    public String getPreviewWarning() {
+        return previewWarning;
     }
 
     /** Changes the view while leaving saved data and command indices unchanged. */
@@ -129,10 +131,7 @@ public class DynamicContentPanel extends VBox {
         previewStudents.setPredicate(filter);
         title.setText(attendanceClass == null ? "Students"
                 : attendanceClass.getModuleCode() + " · " + attendanceClass.getClassName());
-        guidance.setText(warning.isEmpty() ? preview.getSyntax() : warning);
-        boolean showGuidance = !draft.isBlank();
-        guidance.setVisible(showGuidance);
-        guidance.setManaged(showGuidance);
+        previewWarning = warning;
         personListPanel.refresh();
     }
 
