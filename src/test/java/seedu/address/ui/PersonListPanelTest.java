@@ -112,7 +112,7 @@ public class PersonListPanelTest {
                     displayedCell.updateItem(ALICE, false));
 
             assertTrue(model.addAttendance(ALICE, academicClass, LocalDate.of(2020, 1, 1)));
-            assertEquals("2020-01-01", ((Label) displayedCell.getGraphic().lookup("#attendance")).getText());
+            assertEquals("Attendance · 1 day", ((Label) displayedCell.getGraphic().lookup("#attendance")).getText());
 
             assertTrue(model.removeAttendance(ALICE, academicClass, LocalDate.of(2020, 1, 1)));
             assertEquals("No attendance recorded", ((Label) displayedCell.getGraphic()

@@ -1,0 +1,10 @@
+// Launch the existing app with isolated data and preferences for the manual checklist.
+gradle.projectsEvaluated {
+    def demoDirectory = gradle.rootProject.file('_temp/ui-manual-testing/session')
+    gradle.rootProject.tasks.named('run') {
+        workingDir = demoDirectory
+        doFirst {
+            demoDirectory.mkdirs()
+        }
+    }
+}

@@ -1,0 +1,154 @@
+/* Shared slate palette for the existing command, result, class, and student layout. */
+.app-shell .label { -fx-font-family: "System"; -fx-text-fill: #e7edf5; -fx-opacity: 1; }
+.workspace-bottom {
+    -fx-background-color: #1d232b;
+    -fx-border-width: 0;
+    -fx-padding: 12 10;
+}
+.workspace-bottom .label {
+    -fx-font-family: "System";
+    -fx-font-size: 12px;
+    -fx-text-fill: #e7edf5;
+    -fx-opacity: 1;
+}
+.workspace-bottom .section-title { -fx-font-size: 17px; -fx-font-weight: bold; }
+.workspace-bottom .muted { -fx-font-size: 11px; -fx-text-fill: #aab7c7; }
+.workspace-bottom .count-badge {
+    -fx-background-color: #3b4a5b;
+    -fx-background-radius: 10;
+    -fx-text-fill: #e0e9f2;
+    -fx-font-size: 11px;
+    -fx-padding: 3 8;
+}
+.class-sidebar { -fx-padding: 6 12 2 2; }
+.student-workspace { -fx-padding: 6 2 2 14; }
+.workspace-bottom .split-pane-divider {
+    -fx-background-color: #3d4a59;
+    -fx-border-width: 0;
+    -fx-padding: 0 0.5;
+}
+.workspace-bottom .list-view { -fx-background-color: transparent; -fx-padding: 0; -fx-background-insets: 0; }
+.workspace-bottom .list-cell {
+    -fx-padding: 0 0 8 0;
+    -fx-background-color: transparent;
+}
+.workspace-bottom .list-cell:empty { -fx-background-color: transparent; }
+.workspace-bottom .list-cell:filled #cardPane {
+    -fx-background-color: #2a3440;
+    -fx-background-radius: 6;
+    -fx-border-color: transparent;
+    -fx-border-radius: 6;
+    -fx-border-width: 1;
+    -fx-padding: 14;
+}
+.workspace-bottom .class-list .list-cell:filled:selected #cardPane {
+    -fx-background-color: #35495b;
+    -fx-border-color: #91b4d3;
+}
+.workspace-bottom .class-list .list-cell:filled:hover #cardPane { -fx-background-color: #303e4c; }
+.workspace-bottom .class-title { -fx-font-size: 13px; -fx-font-weight: bold; }
+.workspace-bottom .class-index { -fx-font-size: 13px; -fx-text-fill: #b4cadf; }
+.workspace-bottom .cell_big_label { -fx-font-size: 15px; -fx-font-weight: bold; }
+.workspace-bottom .cell_small_label { -fx-font-size: 12px; -fx-text-fill: #b9c6d5; }
+.workspace-bottom #tags { -fx-hgap: 5; -fx-vgap: 4; }
+.workspace-bottom #tags .label {
+    -fx-background-color: #405367;
+    -fx-background-radius: 4;
+    -fx-text-fill: #e0eaf5;
+    -fx-padding: 2 6;
+    -fx-font-size: 10px;
+}
+.workspace-bottom .draft-guidance {
+    -fx-background-color: #304457;
+    -fx-background-radius: 5;
+    -fx-text-fill: #e0eaf5;
+    -fx-font-size: 11px;
+    -fx-padding: 8 10;
+    -fx-max-width: Infinity;
+}
+.workspace-bottom .attendance-strip {
+    -fx-padding: 2 0 2 12;
+    -fx-border-color: #7e9bb6;
+    -fx-border-width: 0 0 0 2;
+}
+.workspace-bottom .attendance-total { -fx-text-fill: #e7edf5; -fx-font-weight: bold; }
+.workspace-bottom .attendance-month { -fx-text-fill: #c3cfdd; -fx-font-size: 12px; -fx-padding: 2 0; }
+.workspace-bottom .day-chip {
+    -fx-background-color: #405367;
+    -fx-background-radius: 4;
+    -fx-text-fill: #eef4fa;
+    -fx-font-family: "Monospaced";
+    -fx-font-size: 11px;
+    -fx-padding: 2 5;
+}
+.workspace-bottom .day-chip:hover { -fx-background-color: #536f89; }
+.workspace-bottom .scroll-bar { -fx-background-color: transparent; }
+.workspace-bottom .scroll-bar .thumb { -fx-background-color: #627a91; -fx-background-radius: 5; }
+
+
+/* Apply the same surfaces, type, borders, and focus colour to the top and footer. */
+.app-shell {
+    -fx-background-color: #1d232b;
+    -fx-font-family: "System";
+    -fx-accent: #91b4d3;
+    -fx-focus-color: #91b4d3;
+    -fx-faint-focus-color: transparent;
+}
+.app-shell .menu-bar { -fx-background-color: #1d232b; -fx-padding: 3 8; }
+.app-shell .menu-bar .label { -fx-font-size: 13px; }
+.app-shell .menu-bar .menu:showing, .app-shell .menu-bar .menu:hover {
+    -fx-background-color: #35495b;
+    -fx-background-radius: 4;
+}
+.app-shell .stack-pane, .app-shell .pane-with-border {
+    -fx-background-color: #1d232b;
+    -fx-border-width: 0;
+}
+.app-shell #commandTextField {
+    -fx-background-color: #252f3b;
+    -fx-background-insets: 0;
+    -fx-background-radius: 6;
+    -fx-border-color: #53677c;
+    -fx-border-radius: 6;
+    -fx-border-insets: 0;
+    -fx-border-width: 1;
+    -fx-padding: 10 12;
+    -fx-font-family: "System";
+    -fx-font-size: 14px;
+    -fx-text-fill: #e7edf5;
+    -fx-prompt-text-fill: #aab7c7;
+    -fx-highlight-fill: #405f7d;
+    -fx-highlight-text-fill: #ffffff;
+}
+.app-shell #commandTextField:focused { -fx-border-color: #91b4d3; }
+.app-shell .error { -fx-text-fill: #efb0a2 !important; }
+.app-shell #resultDisplay {
+    -fx-background-color: #252f3b;
+    -fx-background-insets: 0;
+    -fx-background-radius: 6;
+    -fx-border-color: #3d4a59;
+    -fx-border-width: 1;
+    -fx-border-radius: 6;
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+    -fx-text-fill: #e7edf5;
+    -fx-highlight-fill: #405f7d;
+    -fx-highlight-text-fill: #ffffff;
+}
+.app-shell #resultDisplay .content {
+    -fx-background-color: #252f3b;
+    -fx-background-radius: 6;
+    -fx-padding: 10 12;
+}
+.app-shell #resultDisplay .scroll-pane, .app-shell #resultDisplay .viewport,
+.app-shell #resultDisplay .corner { -fx-background-color: transparent; }
+.app-shell .status-bar { -fx-background-color: #1d232b; }
+.app-shell .status-bar .label { -fx-text-fill: #aab7c7; -fx-font-size: 10px; -fx-padding: 5 10; }
+.app-shell .scroll-bar { -fx-background-color: transparent; }
+.app-shell .scroll-bar .thumb { -fx-background-color: #627a91; -fx-background-radius: 5; }
+.context-menu { -fx-background-color: #252f3b; -fx-border-color: #53677c; }
+.context-menu .label { -fx-font-family: "System"; -fx-font-size: 13px; -fx-text-fill: #e7edf5; }
+.menu-item:focused { -fx-background-color: #35495b; }
+.tooltip { -fx-background-color: #304457; -fx-text-fill: #eef4fa; -fx-font-family: "System"; }
+
+.app-shell .corner { -fx-background-color: #1d232b; }

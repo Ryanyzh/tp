@@ -84,7 +84,10 @@ public class PersonCardTest {
             PersonCard card = new PersonCard(person, 1, academicClass, List.of(attendance));
 
             Label attendanceLabel = getLabel(card, "attendance");
-            assertEquals("2020-01-01, 2020-01-02", attendanceLabel.getText());
+            assertEquals("Attendance · 2 days", attendanceLabel.getText());
+            assertTrue(card.getRoot().lookupAll(".attendance-month").stream()
+                    .map(node -> ((Label) node).getText()).anyMatch("Jan 2020"::equals));
+            assertEquals(2, card.getRoot().lookupAll(".day-chip").size());
             assertTrue(attendanceLabel.getStyleClass().contains("cell_small_label"));
             assertTrue(attendanceLabel.isWrapText());
             assertTrue(attendanceLabel.isVisible());

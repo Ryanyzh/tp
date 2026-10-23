@@ -1,0 +1,120 @@
+TAssist UI branch testing
+
+In an existing project clone (Java 25):
+
+git fetch https://github.com/Ryanyzh/tp.git update-class-attendance-ui
+git switch -c update-class-attendance-ui FETCH_HEAD
+./gradlew check
+./gradlew -I config/ui-demo.gradle run
+
+If the local branch already exists, replace the git switch -c line with:
+git switch update-class-attendance-ui
+git merge --ff-only FETCH_HEAD
+
+The demo launcher stores data under _temp/ui-manual-testing/session/.
+Enter application commands below ONE LINE AT A TIME in its command box.
+The first clear command deletes only that demo instance's saved data.
+Read docs/UiTesting.md for expected results and steps between command blocks.
+
+APPLICATION COMMAND BLOCK 1
+clear
+addclass m/CS2103 c/F10
+addclass m/CS2103 c/F11
+addclass m/CS2101 c/TUTORIAL-GROUP-WITH-A-LONG-NAME
+add sn/DEMO0001 n/Alice Tan e/alice@example.com tg/alice_demo t/tutorial
+add sn/DEMO0002 n/Ben Lim e/ben@example.com tg/ben_demo t/project
+add sn/DEMO0003 n/Cara Ng e/cara@example.com t/tutorial
+assign sn/DEMO0001 m/CS2103 c/F10
+assign sn/DEMO0002 m/CS2103 c/F10
+assign sn/DEMO0003 m/CS2103 c/F11
+assign sn/DEMO0001 m/CS2101 c/TUTORIAL-GROUP-WITH-A-LONG-NAME
+
+APPLICATION COMMAND BLOCK 2
+listbystudent 1
+listclass
+listbyclass 1
+list
+find Alice
+list
+
+APPLICATION COMMAND BLOCK 3
+listclass
+listbyclass 1
+addattendance 1 1 d/2026-09-01
+addattendance 1 1 d/2026-09-02
+addattendance 1 1 d/2026-09-03
+addattendance 1 1 d/2026-09-04
+addattendance 1 1 d/2026-09-05
+addattendance 1 1 d/2026-09-06
+addattendance 1 1 d/2026-09-07
+addattendance 1 1 d/2026-09-08
+addattendance 1 1 d/2026-09-09
+addattendance 1 1 d/2026-09-10
+addattendance 1 1 d/2026-10-01
+addattendance 1 1 d/2026-10-02
+addattendance 2 1 d/2026-09-01
+addattendance 2 1 d/2026-09-03
+
+APPLICATION COMMAND BLOCK 4
+deleteattendance 1 1 d/2026-09-10
+
+APPLICATION COMMAND BLOCK 5
+addattendance 1 1 d/2026-09-01
+deleteattendance 1 1 d/2026-08-01
+addattendance 1 1 d/2099-01-01
+addattendance 1 1 d/2026-02-30
+addattendance 9999 1 d/2026-09-01
+addattendance 1 9999 d/2026-09-01
+addattendance 1 2 d/2026-09-01
+addclass m/CS2103 c/F10
+add sn/DEMO0004 n/Invalid Student e/not-an-email
+delete 9999
+assign sn/UNKNOWN m/CS2103 c/F10
+listclass extra
+unknown
+
+APPLICATION COMMAND BLOCK 6
+list
+find Alice
+edit 1 n/Alice Tan Updated e/alice.updated@example.com tg/ t/project
+list
+listclass
+editclass 1 c/F10-UPDATED
+listbyclass 1
+
+APPLICATION COMMAND BLOCK 7
+list
+listbystudent 3
+listclass
+
+APPLICATION COMMAND BLOCK 8
+unassign sn/DEMO0002 m/CS2103 c/F10-UPDATED
+listbyclass 1
+list
+deleteattendance 2 1 d/2026-09-01
+assign sn/DEMO0002 m/CS2103 c/F10-UPDATED
+listbyclass 1
+
+APPLICATION COMMAND BLOCK 9
+list
+listclass
+delete 3
+deleteclass m/CS2103 c/F11
+list
+listclass
+help
+
+APPLICATION COMMAND BLOCK 10
+exit
+
+After the exit command, relaunch the same isolated demo to check saved data:
+./gradlew -I config/ui-demo.gradle run
+
+In the app, enter:
+listbyclass 1
+
+Expect Alice: 11 attendance days; Ben: 1 attendance day.
+For the final empty-state check, run clear only in this demo window.
+
+Regular launch with your normal saved data:
+./gradlew run

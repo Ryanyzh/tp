@@ -2,13 +2,14 @@ package seedu.address.ui;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import seedu.address.model.academicclass.AcademicClass;
 import seedu.address.model.attendance.Attendance;
 import seedu.address.model.person.Person;
@@ -43,7 +44,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label telegram;
     @FXML
-    private Label attendance;
+    private VBox attendanceBox;
     @FXML
     private FlowPane tags;
 
@@ -74,11 +75,9 @@ public class PersonCard extends UiPart<Region> {
             telegram.setVisible(false);
             telegram.setManaged(false);
         }
-        attendance.setWrapText(true);
-        attendance.setMaxWidth(Double.MAX_VALUE);
         if (attendanceClass == null) {
-            attendance.setVisible(false);
-            attendance.setManaged(false);
+            attendanceBox.setVisible(false);
+            attendanceBox.setManaged(false);
         } else {
             updateAttendance(attendanceClass, attendanceRecords);
         }
@@ -93,11 +92,7 @@ public class PersonCard extends UiPart<Region> {
                         && record.getAcademicClass().isSameClass(attendanceClass))
                 .findFirst()
                 .orElse(null);
-        String attendedDates = attendanceRecord == null || attendanceRecord.getAttendedDates().isEmpty()
-                ? "No attendance recorded"
-                : attendanceRecord.getAttendedDates().stream()
-                        .map(Object::toString)
-                        .collect(Collectors.joining(", "));
-        attendance.setText(attendedDates);
+        attendanceBox.getChildren().setAll(new AttendanceStrip(attendanceRecord == null
+                ? Set.of() : attendanceRecord.getAttendedDates()));
     }
 }

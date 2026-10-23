@@ -3,8 +3,10 @@ package seedu.address.ui;
 import java.nio.file.Path;
 import java.util.logging.Logger;
 
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -37,15 +39,19 @@ public class MainWindow extends UiPart<Stage> {
     private AcademicClassListPanel academicClassListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+    private DynamicContentPanel contextPanel;
+
+    @FXML
+    private StackPane contextPanelPlaceholder;
+
+    @FXML
+    private Label classCount;
 
     @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private StackPane personListPanelPlaceholder;
 
     @FXML
     private StackPane academicClassListPanelPlaceholder;
@@ -118,12 +124,19 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList(), logic::getAttendanceDisplayClass,
-                logic::getAttendanceList);
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-
         academicClassListPanel = new AcademicClassListPanel(logic.getFilteredAcademicClassList());
         academicClassListPanelPlaceholder.getChildren().add(academicClassListPanel.getRoot());
+
+        contextPanel = new DynamicContentPanel(logic);
+        personListPanel = contextPanel.getPersonListPanel();
+        contextPanelPlaceholder.getChildren().add(contextPanel);
+        academicClassListPanel.selectedClassProperty().addListener((observable, previous, selected) ->
+                contextPanel.selectClass(selected));
+        contextPanel.selectClass(academicClassListPanel.selectedClassProperty().get());
+        classCount.textProperty().bind(Bindings.createStringBinding(() ->
+                logic.getFilteredAcademicClassList().size() + " shown / "
+                        + logic.getAcademicClassList().size() + " total",
+                logic.getFilteredAcademicClassList(), logic.getAcademicClassList()));
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -132,6 +145,7 @@ public class MainWindow extends UiPart<Stage> {
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
+        commandBox.textProperty().addListener((observable, previous, draft) -> contextPanel.updateDraft(draft));
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
@@ -139,8 +153,8 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on {@code guiSettings}.
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
-        primaryStage.setHeight(guiSettings.getWindowHeight());
-        primaryStage.setWidth(guiSettings.getWindowWidth());
+        primaryStage.setHeight(Math.max(primaryStage.getMinHeight(), guiSettings.getWindowHeight()));
+        primaryStage.setWidth(Math.max(primaryStage.getMinWidth(), guiSettings.getWindowWidth()));
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
@@ -189,6 +203,9 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
+            new CommandPreview(commandText).getClassIndex().ifPresent(academicClassListPanel::selectClass);
+            academicClassListPanel.refresh();
+            contextPanel.commandExecuted(commandText);
 
             if (commandResult.isShowHelp()) {
                 handleHelp();

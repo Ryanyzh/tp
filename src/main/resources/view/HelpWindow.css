@@ -1,19 +1,19 @@
-#copyButton, #helpMessage {
-    -fx-text-fill: white;
-}
-
-#copyButton {
-    -fx-background-color: dimgray;
-}
-
-#copyButton:hover {
-    -fx-background-color: gray;
-}
-
-#copyButton:armed {
-    -fx-background-color: darkgray;
-}
-
 #helpMessageContainer {
-    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-background-color: #1d232b;
+    -fx-padding: 14;
 }
+#copyButton, #helpMessage {
+    -fx-font-family: "System";
+    -fx-font-size: 13px;
+    -fx-text-fill: #e7edf5;
+}
+#copyButton {
+    -fx-background-color: #35495b;
+    -fx-background-radius: 5;
+    -fx-border-color: #627a91;
+    -fx-border-radius: 5;
+    -fx-padding: 7 12;
+}
+#copyButton:hover { -fx-background-color: #405f7d; }
+#copyButton:armed { -fx-background-color: #304457; }
+#copyButton:focused { -fx-border-color: #91b4d3; }
