@@ -5,14 +5,14 @@
 Run these from an existing clone of the team project (Java 25 is required):
 
 ```bash
-git fetch https://github.com/Ryanyzh/tp.git update-class-attendance-ui
-git switch -c update-class-attendance-ui FETCH_HEAD
+git fetch https://github.com/Ryanyzh/tp.git refresh-ui
+git switch -c refresh-ui FETCH_HEAD
 ```
 
 If you already have the local branch, use this after the fetch instead:
 
 ```bash
-git switch update-class-attendance-ui
+git switch refresh-ui
 git merge --ff-only FETCH_HEAD
 ```
 

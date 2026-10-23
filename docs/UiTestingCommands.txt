@@ -2,13 +2,13 @@ TAssist UI branch testing
 
 In an existing project clone (Java 25):
 
-git fetch https://github.com/Ryanyzh/tp.git update-class-attendance-ui
-git switch -c update-class-attendance-ui FETCH_HEAD
+git fetch https://github.com/Ryanyzh/tp.git refresh-ui
+git switch -c refresh-ui FETCH_HEAD
 ./gradlew check
 ./gradlew -I config/ui-demo.gradle run
 
 If the local branch already exists, replace the git switch -c line with:
-git switch update-class-attendance-ui
+git switch refresh-ui
 git merge --ff-only FETCH_HEAD
 
 The demo launcher stores data under _temp/ui-manual-testing/session/.
