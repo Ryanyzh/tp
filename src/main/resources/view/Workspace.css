@@ -41,11 +41,6 @@
     -fx-border-width: 1;
     -fx-padding: 14;
 }
-.workspace-bottom .class-list .list-cell:filled:selected #cardPane {
-    -fx-background-color: #35495b;
-    -fx-border-color: #91b4d3;
-}
-.workspace-bottom .class-list .list-cell:filled:hover #cardPane { -fx-background-color: #303e4c; }
 .workspace-bottom .class-title { -fx-font-size: 13px; -fx-font-weight: bold; }
 .workspace-bottom .class-index { -fx-font-size: 13px; -fx-text-fill: #b4cadf; }
 .workspace-bottom .cell_big_label { -fx-font-size: 15px; -fx-font-weight: bold; }

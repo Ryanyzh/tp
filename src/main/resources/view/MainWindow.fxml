@@ -46,7 +46,6 @@
               <Label fx:id="classCount" styleClass="count-badge" />
             </HBox>
             <StackPane fx:id="academicClassListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-            <Label text="Select a class to preview its students" styleClass="muted" wrapText="true" />
           </VBox>
           <StackPane fx:id="contextPanelPlaceholder" minWidth="370" />
         </SplitPane>

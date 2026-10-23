@@ -130,9 +130,6 @@ public class MainWindow extends UiPart<Stage> {
         contextPanel = new DynamicContentPanel(logic);
         personListPanel = contextPanel.getPersonListPanel();
         contextPanelPlaceholder.getChildren().add(contextPanel);
-        academicClassListPanel.selectedClassProperty().addListener((observable, previous, selected) ->
-                contextPanel.selectClass(selected));
-        contextPanel.selectClass(academicClassListPanel.selectedClassProperty().get());
         classCount.textProperty().bind(Bindings.createStringBinding(() ->
                 logic.getFilteredAcademicClassList().size() + " shown / "
                         + logic.getAcademicClassList().size() + " total",
@@ -203,7 +200,7 @@ public class MainWindow extends UiPart<Stage> {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
-            new CommandPreview(commandText).getClassIndex().ifPresent(academicClassListPanel::selectClass);
+            new CommandPreview(commandText).getClassIndex().ifPresent(academicClassListPanel::scrollToClass);
             academicClassListPanel.refresh();
             contextPanel.commandExecuted(commandText);
 

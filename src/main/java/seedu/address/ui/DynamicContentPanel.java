@@ -31,7 +31,7 @@ public class DynamicContentPanel extends VBox {
     private final Label guidance = new Label();
     private final FilteredList<Person> previewStudents;
     private final PersonListPanel personListPanel;
-    private AcademicClass selectedClass;
+    private AcademicClass commandClass;
     private AcademicClass attendanceClass;
     private String draft = "";
 
@@ -67,12 +67,6 @@ public class DynamicContentPanel extends VBox {
         return personListPanel;
     }
 
-    /** Previews members of a selected class using their existing command indices. */
-    public void selectClass(AcademicClass academicClass) {
-        selectedClass = academicClass;
-        refresh();
-    }
-
     /** Changes the view while leaving saved data and command indices unchanged. */
     public void updateDraft(String draft) {
         this.draft = draft;
@@ -82,9 +76,9 @@ public class DynamicContentPanel extends VBox {
     /** Returns to the resulting model view after a successful command. */
     public void commandExecuted(String commandText) {
         draft = commandText;
-        selectedClass = resolveClass(new CommandPreview(commandText));
+        commandClass = resolveClass(new CommandPreview(commandText));
         if (List.of("list", "find", "listbystudent", "clear").contains(new CommandPreview(commandText).getCommand())) {
-            selectedClass = null;
+            commandClass = null;
         }
         draft = "";
         refresh();
@@ -162,7 +156,7 @@ public class DynamicContentPanel extends VBox {
         if (List.of("list", "find", "clear", "add", "addclass", "listbystudent").contains(preview.getCommand())) {
             return null;
         }
-        return selectedClass == null ? null : logic.getAcademicClassList().stream()
-                .filter(item -> item.isSameClass(selectedClass)).findFirst().orElse(null);
+        return commandClass == null ? null : logic.getAcademicClassList().stream()
+                .filter(item -> item.isSameClass(commandClass)).findFirst().orElse(null);
     }
 }

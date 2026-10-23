@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.awt.image.BufferedImage;
@@ -74,6 +75,7 @@ public class WorkspaceTest {
                 layout(stage);
                 ListView<?> board = (ListView<?>) stage.getScene().lookup("#academicClassListView");
                 assertEquals(Orientation.VERTICAL, board.getOrientation());
+                assertNull(board.getSelectionModel());
                 assertEquals(3, board.getItems().size());
                 assertContains(stage.getScene().getRoot(), "3 shown / 3 total");
                 assertEquals("6 shown", ((Label) stage.getScene().lookup("#shownStudentCount")).getText());
@@ -105,7 +107,7 @@ public class WorkspaceTest {
                         .mapToInt(record -> record.getAttendanceCount()).sum());
                 assertContains(stage.getScene().getRoot(), "CS2103 · F10");
 
-                board.getSelectionModel().select(1);
+                input.setText("listbyclass 2");
                 assertContains(stage.getScene().getRoot(), "CS2101 · T02");
                 assertEquals(2, students.getItems().size());
                 assertEquals("2 shown", ((Label) stage.getScene().lookup("#shownStudentCount")).getText());
@@ -118,7 +120,7 @@ public class WorkspaceTest {
                 assertEquals(6, logic.getFilteredPersonList().size());
                 input.fireEvent(new ActionEvent());
                 assertEquals(4, logic.getFilteredPersonList().size());
-                assertEquals(0, board.getSelectionModel().getSelectedIndex());
+                assertNull(board.getSelectionModel());
                 assertContains(stage.getScene().getRoot(), "CS2103 · F10");
                 capture(stage, "class-attendance");
                 input.setText("addattendance 9999 9999 d/");

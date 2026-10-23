@@ -76,16 +76,18 @@ Expected checkpoints, in order:
 
 Also test the read-only UI previews:
 
-1. With all students displayed, select F11. The right panel previews Cara with
+1. With all students displayed, type `listbyclass 2` without pressing Enter.
+   The right panel previews Cara with
    her command index **3**, and its header says **1 shown**.
-2. Select F10. The preview shows Alice and Ben, with **2 shown**.
+2. Replace the draft with `listbyclass 1`. The preview shows Alice and Ben, with **2 shown**.
 3. Type `find Cara` without pressing Enter. The count should become **1 shown**.
 4. Replace it with `find Nobody` without pressing Enter: **0 shown**.
 5. Clear the input. Previewing should not have changed saved data or model filters.
 6. Run `list` to return to the full list before continuing.
 
-Class clicks and draft searches preview the **current command student list**.
-Run `list` first when you want to preview across all students.
+Draft class commands and searches preview the **current command student list**.
+Run `list` first when you want to preview across all students. Class rows are
+read-only; commands execute only when you press Enter in the command box.
 
 ## 3. Build attendance strips across two months
 

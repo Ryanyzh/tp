@@ -63,7 +63,7 @@ public class CommandPreview {
         if (getCommand().equals("assign") || getCommand().equals("unassign")) {
             return "Use the student's number and the class identity. Saved memberships change only after Enter.";
         }
-        return "Select a class row to explore its students. Drafts never change your data. "
+        return "Type listbyclass CLASS_INDEX to preview its students. Drafts never change your data. "
                 + "Press Enter when your command is ready.";
     }
 
